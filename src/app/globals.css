@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fcfcfb;
+  --sidebar-bg: #f3f3f1;
+  --surface: #ffffff;
+  --surface-hover: #f6f6f4;
+  --card: #ffffff;
+  --border: #e2e2de;
+  --border-subtle: #ecece9;
+  --ink: #111113;
+  --ink-muted: #6e6e73;
+  --ink-faint: #8a8a8f;
+  --accent: #2563eb;
+  --emerald: #059669;
+  --highlight: rgba(255, 255, 255, 0.95);
+  --shadow-capsule: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+  --bg: #0f0f11;
+  --sidebar-bg: #151518;
+  --surface: #18181c;
+  --surface-hover: #222228;
+  --card: #151518;
+  --border: #26262c;
+  --border-subtle: #1e1e24;
+  --ink: #ececee;
+  --ink-muted: #8b8b91;
+  --ink-faint: #66666c;
+  --accent: #3b82f6;
+  --emerald: #10b981;
+  --highlight: rgba(255, 255, 255, 0.04);
+  --shadow-capsule: 0 18px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden;
+}
+
+/* Subtle Dither Background Overlay */
+.dither-cover {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: radial-gradient(var(--border) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Outer Capsule Sidebar */
+.capsule-sidebar {
+  background: var(--sidebar-bg);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  box-shadow: var(--shadow-capsule);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Inner Panel */
+.capsule-panel {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+}
+
+/* Project Row Hover Transition */
+.project-row {
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.project-row:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--border);
+  transform: translateY(-1px);
+}
+
+/* Floating Expand Button */
+.sidebar-expand-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 40;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sidebar-expand-btn:hover {
+  transform: scale(1.05);
+  border-color: var(--accent);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
