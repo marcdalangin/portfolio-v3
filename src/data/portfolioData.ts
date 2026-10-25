@@ -1,8 +1,8 @@
 import { PortfolioProfile, MetricItem, ExperienceItem, ProjectItem, TechStackCategory } from "@/types/portfolio";
 
 export const profileData: PortfolioProfile = {
-  name: "Marc Dev",
-  githubUsername: "marwie0904", // Change this to your GitHub username!
+  name: "Marc Dalangin",
+  githubUsername: "marcdalangin",
   role: "Full-Stack Developer & AI Systems Builder",
   location: "Manila, Philippines",
   timezone: "GMT+8",
@@ -10,13 +10,13 @@ export const profileData: PortfolioProfile = {
     "I integrate custom systems where a business needs them most, turning manual grunt work into seamless automations built around how each firm actually runs. I dropped out of college to focus on building projects and growing my skills the non-traditional way.",
   fullBio:
     "I believe that to keep up in this fast-moving tech space, you have to step out of your comfort zone: learn, explore, and build things yourself. Beyond freelance consulting, I run a developer community teaching AI-native engineering and open-source tooling.",
-  email: "hello@marwieang.com",
-  discordHandle: "@marc_dev",
+  email: "hello@marcdalangin.com",
+  discordHandle: "@marcdalangin",
   isOpenToWork: true,
   socials: {
-    github: "https://github.com/marwie0904",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    github: "https://github.com/marcdalangin",
+    linkedin: "https://linkedin.com/in/marcdalangin",
+    twitter: "https://x.com/marcdalangin",
     youtube: "https://youtube.com",
   },
 };
@@ -71,7 +71,7 @@ export const clientProjectsData: ProjectItem[] = [
     description: "Custom CRM that consolidates a law firm's intake, document workflows, and client scoring in one portal.",
     tag: "US Law Firm",
     emojiIcon: "⚖️",
-    link: "https://github.com",
+    link: "https://github.com/marcdalangin",
     isClient: true,
   },
   {
@@ -80,7 +80,7 @@ export const clientProjectsData: ProjectItem[] = [
     description: "Sales CRM with an autonomous AI Messenger bot that qualifies incoming residential solar leads.",
     tag: "Solar Tech",
     emojiIcon: "☀️",
-    link: "https://github.com",
+    link: "https://github.com/marcdalangin",
     isClient: true,
   },
   {
@@ -89,7 +89,7 @@ export const clientProjectsData: ProjectItem[] = [
     description: "Offline-first iPad consultation recording and interview site synced straight to law firm intake pipelines.",
     tag: "Legal Tech",
     emojiIcon: "📋",
-    link: "https://github.com",
+    link: "https://github.com/marcdalangin",
     isClient: true,
   },
   {
@@ -98,7 +98,7 @@ export const clientProjectsData: ProjectItem[] = [
     description: "LLM pipeline auditing commercial contract discrepancies against client playbook definitions.",
     tag: "Fintech",
     emojiIcon: "📑",
-    link: "https://github.com",
+    link: "https://github.com/marcdalangin",
     isClient: true,
   },
 ];
@@ -110,7 +110,7 @@ export const personalProjectsData: ProjectItem[] = [
     description: "Automated short-form video generation & smart captions with Claude Code and FFmpeg hooks.",
     tag: "AI Creator Tool",
     emojiIcon: "🎬",
-    link: "https://github.com",
+    link: "https://github.com/marcdalangin",
   },
   {
     id: "taskflow",
@@ -118,7 +118,7 @@ export const personalProjectsData: ProjectItem[] = [
     description: "Zero-latency collaborative kanban board with optimistic UI updates and SQLite local sync.",
     tag: "Productivity",
     emojiIcon: "⚡",
-    link: "https://github.com",
+    link: "https://github.com/marcdalangin",
   },
   {
     id: "devph-hub",
@@ -126,7 +126,7 @@ export const personalProjectsData: ProjectItem[] = [
     description: "Free interactive courseware and project repository for Filipino AI engineers.",
     tag: "Community",
     emojiIcon: "🇵🇭",
-    link: "https://github.com",
+    link: "https://github.com/marcdalangin",
   },
 ];
 

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Marc Dev · Software Developer & AI Systems Builder",
+  title: "Marc Dalangin · Software Developer & AI Systems Builder",
   description:
     "I integrate custom systems where a business needs them most, turning manual grunt work into seamless automations built around how each firm actually runs.",
 };
