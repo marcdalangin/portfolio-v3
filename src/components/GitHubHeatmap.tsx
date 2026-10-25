@@ -1,29 +1,52 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { Activity } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Activity, ArrowUpRight, Loader2 } from "lucide-react";
+import { profileData } from "@/data/portfolioData";
+import { ContributionDay } from "@/app/api/github/route";
 
-export function GitHubHeatmap() {
-  // Generate deterministic 52-week contribution distribution
-  const weeks = useMemo(() => {
-    const list: number[][] = [];
-    for (let w = 0; w < 48; w++) {
-      const days: number[] = [];
-      for (let d = 0; d < 7; d++) {
-        // pseudo-random with higher activity weighting
-        const seed = Math.sin(w * 7 + d + 42) * 10000;
-        const val = seed - Math.floor(seed);
-        let level = 0;
-        if (val > 0.85) level = 4;
-        else if (val > 0.65) level = 3;
-        else if (val > 0.45) level = 2;
-        else if (val > 0.25) level = 1;
-        days.push(level);
+interface GitHubHeatmapProps {
+  username?: string;
+}
+
+export function GitHubHeatmap({ username = profileData.githubUsername }: GitHubHeatmapProps) {
+  const [weeks, setWeeks] = useState<ContributionDay[][]>([]);
+  const [total, setTotal] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchGitHubData() {
+      try {
+        setLoading(true);
+        setError(false);
+        const res = await fetch(`/api/github?username=${encodeURIComponent(username)}`);
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        if (isMounted) {
+          setWeeks(data.weeks || []);
+          setTotal(data.total ?? 0);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Failed to load GitHub activity:", err);
+        if (isMounted) {
+          setError(true);
+          setLoading(false);
+        }
       }
-      list.push(days);
     }
-    return list;
-  }, []);
+
+    if (username) {
+      fetchGitHubData();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [username]);
 
   const getCellColor = (level: number) => {
     switch (level) {
@@ -49,48 +72,78 @@ export function GitHubHeatmap() {
           </h2>
           <Activity className="w-3.5 h-3.5 text-emerald-500" />
         </div>
-        <span className="text-xs font-mono font-bold" style={{ color: "var(--emerald)" }}>
-          4,892 contributions in the last year
-        </span>
+
+        <a
+          href={`https://github.com/${username}`}
+          target="_blank"
+          rel="noreferrer"
+          className="text-xs font-mono font-bold hover:underline flex items-center gap-1 transition"
+          style={{ color: "var(--emerald)" }}
+          title={`View @${username} on GitHub`}
+        >
+          {loading ? (
+            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Loader2 className="w-3 h-3 animate-spin text-emerald-500" /> Loading live GitHub activity...
+            </span>
+          ) : (
+            <>
+              <span>{total !== null ? total.toLocaleString() : "–"} contributions in the last year</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </>
+          )}
+        </a>
       </div>
 
       <div
         className="p-4 rounded-2xl border space-y-3 overflow-x-auto shadow-xs"
         style={{ background: "var(--surface)", borderColor: "var(--border)" }}
       >
-        <div className="flex gap-1 min-w-[580px] justify-between">
-          {weeks.map((week, wIdx) => (
-            <div key={wIdx} className="flex flex-col gap-1 flex-1">
-              {week.map((level, dIdx) => (
-                <div
-                  key={dIdx}
-                  className="h-2 w-full rounded-xs transition hover:scale-125 hover:z-10 cursor-pointer"
-                  style={{ background: getCellColor(level) }}
-                  title={`${level > 0 ? level * 3 + " contributions" : "No contributions"}`}
-                />
+        {loading && weeks.length === 0 ? (
+          <div className="flex items-center justify-center py-8 text-xs gap-2" style={{ color: "var(--ink-muted)" }}>
+            <Loader2 className="w-4 h-4 animate-spin text-emerald-500" />
+            <span>Fetching live contributions from @{username}...</span>
+          </div>
+        ) : error && weeks.length === 0 ? (
+          <div className="text-center py-6 text-xs" style={{ color: "var(--ink-muted)" }}>
+            Could not fetch GitHub activity for <code className="text-blue-500">@{username}</code>. Verify your username in <code className="text-xs">src/data/portfolioData.ts</code>.
+          </div>
+        ) : (
+          <>
+            <div className="flex gap-1 min-w-[580px] justify-between">
+              {weeks.map((week, wIdx) => (
+                <div key={wIdx} className="flex flex-col gap-1 flex-1">
+                  {week.map((day, dIdx) => (
+                    <div
+                      key={dIdx}
+                      className="h-2 w-full rounded-xs transition hover:scale-125 hover:z-10 cursor-pointer"
+                      style={{ background: getCellColor(day.level) }}
+                      title={`${day.count} contribution${day.count === 1 ? "" : "s"} on ${day.date}`}
+                    />
+                  ))}
+                </div>
               ))}
             </div>
-          ))}
-        </div>
 
-        {/* Legend & Month Labels */}
-        <div className="flex items-center justify-between text-[11px] pt-1" style={{ color: "var(--ink-faint)" }}>
-          <span>Jan</span>
-          <span>Mar</span>
-          <span>May</span>
-          <span>Jul</span>
-          <span>Sep</span>
-          <span>Nov</span>
-          <div className="flex items-center gap-1 font-mono">
-            <span>Less</span>
-            <span className="h-2 w-2 rounded-xs" style={{ background: "var(--border)" }} />
-            <span className="h-2 w-2 rounded-xs" style={{ background: "#064e3b" }} />
-            <span className="h-2 w-2 rounded-xs" style={{ background: "#047857" }} />
-            <span className="h-2 w-2 rounded-xs" style={{ background: "#059669" }} />
-            <span className="h-2 w-2 rounded-xs" style={{ background: "#10b981" }} />
-            <span>More</span>
-          </div>
-        </div>
+            {/* Legend & Month Labels */}
+            <div className="flex items-center justify-between text-[11px] pt-1" style={{ color: "var(--ink-faint)" }}>
+              <span>Jan</span>
+              <span>Mar</span>
+              <span>May</span>
+              <span>Jul</span>
+              <span>Sep</span>
+              <span>Nov</span>
+              <div className="flex items-center gap-1 font-mono">
+                <span>Less</span>
+                <span className="h-2 w-2 rounded-xs" style={{ background: "var(--border)" }} />
+                <span className="h-2 w-2 rounded-xs" style={{ background: "#064e3b" }} />
+                <span className="h-2 w-2 rounded-xs" style={{ background: "#047857" }} />
+                <span className="h-2 w-2 rounded-xs" style={{ background: "#059669" }} />
+                <span className="h-2 w-2 rounded-xs" style={{ background: "#10b981" }} />
+                <span>More</span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

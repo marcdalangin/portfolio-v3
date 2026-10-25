@@ -2,6 +2,7 @@ import { PortfolioProfile, MetricItem, ExperienceItem, ProjectItem, TechStackCat
 
 export const profileData: PortfolioProfile = {
   name: "Marc Dev",
+  githubUsername: "marwie0904", // Change this to your GitHub username!
   role: "Full-Stack Developer & AI Systems Builder",
   location: "Manila, Philippines",
   timezone: "GMT+8",
@@ -13,7 +14,7 @@ export const profileData: PortfolioProfile = {
   discordHandle: "@marc_dev",
   isOpenToWork: true,
   socials: {
-    github: "https://github.com",
+    github: "https://github.com/marwie0904",
     linkedin: "https://linkedin.com",
     twitter: "https://x.com",
     youtube: "https://youtube.com",

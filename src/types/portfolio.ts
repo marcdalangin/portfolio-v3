@@ -34,6 +34,7 @@ export interface TechStackCategory {
 
 export interface PortfolioProfile {
   name: string;
+  githubUsername: string;
   role: string;
   location: string;
   timezone: string;
