@@ -41,7 +41,7 @@ export function MobileBar({ onOpenContact }: MobileBarProps) {
     <>
       {/* Sticky Top Mobile Header */}
       <header
-        className="sticky top-0 z-40 flex items-center justify-between border-b px-4 py-2.5 md:hidden"
+        className="mobile-bar sticky top-0 z-40 flex items-center justify-between border-b px-4 py-2.5 md:hidden"
         style={{ background: "var(--bg)", borderColor: "var(--border)" }}
       >
         <div className="flex items-center gap-2.5">
@@ -80,6 +80,7 @@ export function MobileBar({ onOpenContact }: MobileBarProps) {
             className="p-1.5 rounded-lg border text-xs cursor-pointer transition hover:border-blue-500"
             style={{ borderColor: "var(--border)", background: "var(--surface)", color: "var(--ink)" }}
             aria-label="Toggle theme"
+            title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
           >
             {theme === "dark" ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-blue-500" />}
           </button>
