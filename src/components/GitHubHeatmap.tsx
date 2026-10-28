@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Activity, ArrowUpRight, Loader2 } from "lucide-react";
+import { Activity, ArrowUpRight, Loader2, RefreshCw, AlertCircle } from "lucide-react";
 import { profileData } from "@/data/portfolioData";
 import { ContributionDay } from "@/app/api/github/route";
 
@@ -14,6 +14,7 @@ export function GitHubHeatmap({ username = profileData.githubUsername }: GitHubH
   const [total, setTotal] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -46,7 +47,7 @@ export function GitHubHeatmap({ username = profileData.githubUsername }: GitHubH
     return () => {
       isMounted = false;
     };
-  }, [username]);
+  }, [username, retryCount]);
 
   const getCellColor = (level: number) => {
     switch (level) {
@@ -73,41 +74,81 @@ export function GitHubHeatmap({ username = profileData.githubUsername }: GitHubH
           <Activity className="w-3.5 h-3.5 text-emerald-500" />
         </div>
 
-        <a
-          href={`https://github.com/${username}`}
-          target="_blank"
-          rel="noreferrer"
-          className="text-xs font-mono font-bold hover:underline flex items-center gap-1 transition"
-          style={{ color: "var(--emerald)" }}
-          title={`View @${username} on GitHub`}
-        >
-          {loading ? (
-            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Loader2 className="w-3 h-3 animate-spin text-emerald-500" /> Loading live GitHub activity...
-            </span>
-          ) : (
-            <>
-              <span>{total !== null ? total.toLocaleString() : "–"} contributions in the last year</span>
-              <ArrowUpRight className="w-3 h-3" />
-            </>
-          )}
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href={`https://github.com/${username}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-mono font-bold hover:underline flex items-center gap-1 transition"
+            style={{ color: "var(--emerald)" }}
+            title={`View @${username} on GitHub`}
+          >
+            {loading ? (
+              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Loader2 className="w-3 h-3 animate-spin text-emerald-500" /> Syncing live activity...
+              </span>
+            ) : total !== null ? (
+              <>
+                <span>{total.toLocaleString()} contributions in the last year</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </>
+            ) : (
+              <span>@{username}</span>
+            )}
+          </a>
+        </div>
       </div>
 
       <div
         className="p-4 rounded-2xl border space-y-3 overflow-x-auto shadow-xs"
         style={{ background: "var(--surface)", borderColor: "var(--border)" }}
       >
-        {loading && weeks.length === 0 ? (
-          <div className="flex items-center justify-center py-8 text-xs gap-2" style={{ color: "var(--ink-muted)" }}>
-            <Loader2 className="w-4 h-4 animate-spin text-emerald-500" />
-            <span>Fetching live contributions from @{username}...</span>
+        {/* Loading State */}
+        {loading && weeks.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-10 text-xs gap-2" style={{ color: "var(--ink-muted)" }}>
+            <Loader2 className="w-5 h-5 animate-spin text-emerald-500" />
+            <span>Fetching live contributions for @{username} (5-min cache)...</span>
           </div>
-        ) : error && weeks.length === 0 ? (
-          <div className="text-center py-6 text-xs" style={{ color: "var(--ink-muted)" }}>
-            Could not fetch GitHub activity for <code className="text-blue-500">@{username}</code>. Verify your username in <code className="text-xs">src/data/portfolioData.ts</code>.
+        )}
+
+        {/* Error State */}
+        {error && weeks.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-8 text-center text-xs space-y-2">
+            <div className="flex items-center gap-1.5 text-amber-500 font-semibold">
+              <AlertCircle className="w-4 h-4" /> Unable to load live GitHub activity
+            </div>
+            <p style={{ color: "var(--ink-muted)" }}>
+              Rate limits or network latency may have delayed the feed. You can view contributions directly on GitHub.
+            </p>
+            <div className="flex items-center gap-2 pt-1">
+              <button
+                onClick={() => setRetryCount((c) => c + 1)}
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-lg border text-xs font-semibold hover:border-blue-500 cursor-pointer"
+                style={{ borderColor: "var(--border)", color: "var(--ink)" }}
+              >
+                <RefreshCw className="w-3 h-3" /> Retry
+              </button>
+              <a
+                href={`https://github.com/${username}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold"
+              >
+                Open GitHub Profile
+              </a>
+            </div>
           </div>
-        ) : (
+        )}
+
+        {/* Empty State */}
+        {!loading && !error && weeks.length > 0 && total === 0 && (
+          <div className="text-center py-8 text-xs" style={{ color: "var(--ink-muted)" }}>
+            No public contributions recorded for @{username} in the past year.
+          </div>
+        )}
+
+        {/* Live Heatmap Display */}
+        {weeks.length > 0 && (
           <>
             <div className="flex gap-1 min-w-[580px] justify-between">
               {weeks.map((week, wIdx) => (

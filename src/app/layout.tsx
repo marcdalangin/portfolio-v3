@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Marc Dalangin · Software Developer & AI Systems Builder",
+  title: "Marc Dalangin | Software Developer",
   description:
-    "I integrate custom systems where a business needs them most, turning manual grunt work into seamless automations built around how each firm actually runs.",
+    "Remote web developer with 2+ years of async client and team work, building full-stack apps and automation tools in Python, TypeScript, React, and Node.js.",
 };
 
 export default function RootLayout({
@@ -30,6 +30,25 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Anti-FOUC Theme Initialization Script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('portfolio-theme');
+                  var theme = saved;
+                  if (!theme || (theme !== 'light' && theme !== 'dark')) {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-screen">
         <ThemeProvider>{children}</ThemeProvider>
       </body>

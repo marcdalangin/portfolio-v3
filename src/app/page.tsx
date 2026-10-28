@@ -24,8 +24,8 @@ export default function PortfolioHome() {
       {/* Top Mobile Bar (Visible on mobile/tablet viewports) */}
       <MobileBar onOpenContact={() => setIsContactOpen(true)} />
 
-      {/* Main Two-Column Shell */}
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl gap-6 p-4 md:p-6 lg:p-8 min-h-screen">
+      {/* Main Full-Width Shell */}
+      <div className="relative z-10 flex w-full min-h-screen">
         
         {/* Left Sticky Capsule Sidebar (Desktop) */}
         <Sidebar
@@ -34,17 +34,15 @@ export default function PortfolioHome() {
           onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
 
-        {/* Right Main Content Column */}
-        <main
-          className={`w-full max-w-3xl flex-1 space-y-12 pb-24 transition-all duration-300 ${
-            isSidebarCollapsed ? "mx-auto max-w-4xl" : ""
-          }`}
-        >
-          <Hero onOpenReach={() => setIsReachOpen(true)} />
-          <ExperienceSection onOpenContact={() => setIsContactOpen(true)} />
-          <ProjectsSection />
-          <TechStackSection />
-          <GitHubHeatmap />
+        {/* Main Canvas: Centers content column in available viewport space */}
+        <main className="flex-1 min-w-0 flex justify-center px-4 sm:px-6 md:px-8 py-6 md:py-10 transition-all duration-300">
+          <div className="w-full max-w-2xl lg:max-w-3xl space-y-12 pb-24">
+            <Hero onOpenReach={() => setIsReachOpen(true)} />
+            <ExperienceSection onOpenContact={() => setIsContactOpen(true)} />
+            <ProjectsSection />
+            <TechStackSection />
+            <GitHubHeatmap />
+          </div>
         </main>
       </div>
 

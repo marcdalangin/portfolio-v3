@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { experienceData, profileData } from "@/data/portfolioData";
 
 interface ExperienceSectionProps {
@@ -39,20 +39,25 @@ export function ExperienceSection({ onOpenContact }: ExperienceSectionProps) {
         </div>
       </div>
 
-      <div className="space-y-3.5">
+      <div className="space-y-4">
         {experienceData.map((exp) => (
           <div
             key={exp.id}
-            className="p-4 rounded-2xl border space-y-2.5 transition hover:border-blue-500/40"
+            className="p-4 sm:p-5 rounded-2xl border space-y-3 transition hover:border-blue-500/40"
             style={{ background: "var(--surface)", borderColor: "var(--border)" }}
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <div>
-                <h3 className="font-bold text-sm tracking-tight" style={{ color: "var(--ink)" }}>
+                <h3 className="font-bold text-sm sm:text-base tracking-tight" style={{ color: "var(--ink)" }}>
                   {exp.role}
                 </h3>
-                <div className="text-xs font-medium" style={{ color: "var(--ink-muted)" }}>
+                <div className="text-xs font-semibold text-blue-500">
                   {exp.company}
+                  {exp.location && (
+                    <span className="text-[11px] font-normal" style={{ color: "var(--ink-faint)" }}>
+                      {" "}· {exp.location}
+                    </span>
+                  )}
                 </div>
               </div>
               <span
@@ -63,9 +68,20 @@ export function ExperienceSection({ onOpenContact }: ExperienceSectionProps) {
               </span>
             </div>
 
-            <p className="text-xs leading-relaxed" style={{ color: "var(--ink-muted)" }}>
-              {exp.description}
-            </p>
+            {exp.highlights && exp.highlights.length > 0 ? (
+              <ul className="space-y-1.5 pt-0.5">
+                {exp.highlights.map((bullet, i) => (
+                  <li key={i} className="text-xs leading-relaxed flex items-start gap-2" style={{ color: "var(--ink-muted)" }}>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-xs leading-relaxed" style={{ color: "var(--ink-muted)" }}>
+                {exp.description}
+              </p>
+            )}
 
             <div className="flex flex-wrap gap-1.5 pt-1">
               {exp.tags.map((tag) => (

@@ -56,3 +56,85 @@ export function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+/**
+ * Claude Starburst / Asterisk Icon
+ */
+export function ClaudeCodeIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      width="30"
+      height="30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M16 2.5v27M2.5 16h27M6.4 6.4l19.2 19.2M25.6 6.4L6.4 25.6M16 7l6 9-6 9-6-9 6-9z"
+        stroke="#D97757"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="16" cy="16" r="3.5" fill="#D97757" />
+    </svg>
+  );
+}
+
+/**
+ * Claude Design Retro Mascot Icon
+ * Pixel-styled boxy avatar with white border, eyes, and legs in terracotta (#D97757)
+ */
+export function ClaudeDesignIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 36 36"
+      width="32"
+      height="32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {/* Outer border & body */}
+      <rect x="2" y="5" width="32" height="24" rx="4" fill="#D97757" stroke="#ffffff" strokeWidth="1.6" />
+      {/* Eyes */}
+      <rect x="8" y="11" width="4" height="4" rx="1" fill="#18181b" />
+      <rect x="24" y="11" width="4" height="4" rx="1" fill="#18181b" />
+      {/* Mouth / Teeth gaps */}
+      <rect x="12" y="23" width="4" height="6" fill="#18181b" stroke="#ffffff" strokeWidth="1.2" />
+      <rect x="20" y="23" width="4" height="6" fill="#18181b" stroke="#ffffff" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+/**
+ * Antigravity / Google AI Sparkle Icon
+ */
+export function AntigravityIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 36 36"
+      width="32"
+      height="32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <defs>
+        <linearGradient id="antigravityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#38bdf8" />
+          <stop offset="50%" stopColor="#3b82f6" />
+          <stop offset="100%" stopColor="#818cf8" />
+        </linearGradient>
+      </defs>
+      {/* Central 4-point sparkle with cosmic orbit */}
+      <circle cx="18" cy="18" r="14" stroke="url(#antigravityGrad)" strokeWidth="1.6" strokeDasharray="3 2" opacity="0.6" />
+      <path
+        d="M18 4C18 11.5 24.5 18 32 18C24.5 18 18 24.5 18 32C18 24.5 11.5 18 4 18C11.5 18 18 11.5 18 4Z"
+        fill="url(#antigravityGrad)"
+      />
+      <circle cx="18" cy="18" r="2.5" fill="#ffffff" />
+    </svg>
+  );
+}
