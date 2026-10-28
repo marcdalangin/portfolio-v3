@@ -34,14 +34,15 @@ test.describe("Sidebar Collapse & Theme Switching", () => {
     await page.goto("/");
 
     const html = page.locator("html");
+    await expect(html).toHaveAttribute("data-theme", /^(dark|light)$/);
     const initialTheme = await html.getAttribute("data-theme");
     const expectedTheme = initialTheme === "dark" ? "light" : "dark";
 
     // Click theme toggle button (check mobile bar or desktop sidebar depending on viewport)
     const isMobile = await page.locator(".mobile-bar").isVisible();
     const themeBtn = isMobile
-      ? page.locator(".mobile-bar").getByTitle(/Switch to (Dark|Light) Mode/i)
-      : page.locator("#desktop-sidebar").getByTitle(/Switch to (Dark|Light) Mode/i);
+      ? page.locator(".mobile-bar").getByRole("button", { name: "Toggle theme" })
+      : page.locator("#desktop-sidebar").getByRole("button", { name: /Switch to (Dark|Light) Mode/i });
 
     await themeBtn.click();
 

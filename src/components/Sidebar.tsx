@@ -280,6 +280,7 @@ export function Sidebar({ onOpenContact, isCollapsed, onToggleCollapse }: Sideba
                 <button
                   onClick={toggleTheme}
                   title={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
+                  aria-label={`Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`}
                   className="w-7 h-7 flex items-center justify-center rounded-lg border text-xs cursor-pointer transition hover:bg-black/5 dark:hover:bg-white/5"
                   style={{ borderColor: "var(--border)", background: "var(--surface)", color: "var(--ink)" }}
                 >

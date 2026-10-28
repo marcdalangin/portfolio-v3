@@ -37,18 +37,12 @@ test.describe("Explore & Services Page", () => {
     await expect(toolsSection.getByText("For designing")).toBeVisible();
   });
 
-  test("should render non-clickable structured Links section", async ({ page }) => {
+  test("should verify Links & References section is hidden", async ({ page }) => {
     await page.goto("/explore");
 
+    // Links section should not be visible when sectionFlags.exploreLinks is false
     const linksSection = page.locator("#links");
-    await expect(linksSection).toBeVisible();
-
-    // Links should not be interactive hrefs
-    const linkItems = linksSection.locator("div.flex.items-center.justify-between");
-    const count = await linkItems.count();
-    expect(count).toBeGreaterThan(0);
-
-    // Should display "Unlinked" or structured tag
-    await expect(linksSection.getByText("Unlinked").first()).toBeVisible();
+    await expect(linksSection).not.toBeVisible();
+    await expect(page.getByText("Links & References")).not.toBeVisible();
   });
 });

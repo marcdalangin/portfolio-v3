@@ -19,5 +19,5 @@ export const sectionFlags = {
   informativeChannels: false,   // Hide Informative Channels
   toolsIUse: true,              // Show Tools I use (Antigravity & Claude Design)
   services: true,               // Show Services (fintech, what I build, contact)
-  exploreLinks: true,           // Show Links (non-clickable items)
+  exploreLinks: false,          // Hide Links & References section
 };
