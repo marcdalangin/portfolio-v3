@@ -37,7 +37,7 @@ test.describe("Experience, Projects & Tech Stack", () => {
     await expect(featuredBadge).toBeVisible();
 
     // Link must point to Fixture Checker GitHub repo
-    const fixtureLink = projectsSection.locator("a[href*='fixture-checker-v1']");
+    const fixtureLink = projectsSection.locator("a[href*='live-monitoring-fixture-checker']");
     await expect(fixtureLink).toBeVisible();
     await expect(fixtureLink).toHaveAttribute("target", "_blank");
 

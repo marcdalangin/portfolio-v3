@@ -147,7 +147,7 @@ export const personalProjectsData: ProjectItem[] = [
     description: "Manifest V3 Chrome extension that syncs fixtures every 30 minutes and exports CSV/HTML diff reports.",
     tag: "Chrome Extension",
     emojiIcon: "🔄",
-    link: "https://github.com/marcdalangin/fixture-checker-v1",
+    link: "https://github.com/marcdalangin/live-monitoring-fixture-checker",
     featured: true,
   },
 ];
