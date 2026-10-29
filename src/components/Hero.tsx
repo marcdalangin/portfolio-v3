@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Download, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { profileData, metricsData } from "@/data/portfolioData";
 import { sectionFlags } from "@/data/config";
@@ -25,19 +26,19 @@ export function Hero({ onOpenReach }: HeroProps) {
     <>
       <section id="about" className="space-y-6 pt-2">
         <div className="flex flex-col sm:flex-row items-start gap-5">
-          {/* Dual-State Avatar */}
+          {/* Dual-State Avatar with Marc's Headshot */}
           <div
             className="group relative h-20 w-20 flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border shadow-xs transition duration-300 hover:scale-105"
             style={{ borderColor: "var(--border)", background: "var(--surface)" }}
           >
-            <div
-              className="absolute inset-0 flex items-center justify-center font-bold text-3xl filter grayscale group-hover:grayscale-0 transition duration-300 select-none"
-              style={{
-                background: "linear-gradient(135deg, rgba(37,99,235,0.1), rgba(16,185,129,0.1))",
-              }}
-            >
-              👨‍💻
-            </div>
+            <Image
+              src="/assets/avatar.jpg"
+              alt={profileData.name}
+              width={80}
+              height={80}
+              priority
+              className="h-full w-full object-cover filter grayscale group-hover:grayscale-0 transition duration-300"
+            />
             <span
               className="absolute bottom-1 right-1 h-3.5 w-3.5 rounded-full border-2"
               style={{ background: "var(--emerald)", borderColor: "var(--surface)" }}

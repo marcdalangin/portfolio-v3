@@ -125,7 +125,7 @@ export const clientProjectsData: ProjectItem[] = [
     title: "SHLF Legal Intake & Workflow CRM",
     description: "Custom CRM that consolidates a law firm's intake, document workflows, and client scoring in one portal.",
     tag: "US Law Firm",
-    emojiIcon: "⚖️",
+    emojiIcon: "🧩",
     link: "https://github.com/marcdalangin",
     isClient: true,
   },
@@ -146,7 +146,7 @@ export const personalProjectsData: ProjectItem[] = [
     title: "Fixture Checker",
     description: "Manifest V3 Chrome extension that syncs fixtures every 30 minutes and exports CSV/HTML diff reports.",
     tag: "Chrome Extension",
-    emojiIcon: "🔄",
+    emojiIcon: "🧩",
     link: "https://github.com/marcdalangin/live-monitoring-fixture-checker",
     featured: true,
   },
@@ -249,3 +249,4 @@ export const exploreLinksData: ExploreLinkItem[] = [
     category: "Automation",
   },
 ];
+

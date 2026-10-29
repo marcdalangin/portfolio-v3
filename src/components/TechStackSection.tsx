@@ -17,7 +17,7 @@ export function TechStackSection() {
           <Cpu className="w-3.5 h-3.5 text-amber-500" />
         </div>
         <span className="text-xs font-mono" style={{ color: "var(--ink-muted)" }}>
-          {totalCount} technologies (CV Source of Truth)
+          {totalCount} technologies
         </span>
       </div>
 

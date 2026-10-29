@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ChevronUp, Puzzle } from "lucide-react";
 import { clientProjectsData, personalProjectsData } from "@/data/portfolioData";
 import { sectionFlags } from "@/data/config";
 import { ProjectItem } from "@/types/portfolio";
@@ -21,16 +21,20 @@ export function ProjectsSection() {
       rel="noopener noreferrer"
       className="project-row flex items-center justify-between gap-3 p-3 rounded-2xl cursor-pointer group"
     >
-      <div className="flex items-center gap-3 min-w-0">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
         <div
           className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl flex-shrink-0 flex items-center justify-center text-lg border shadow-xs transition group-hover:scale-105"
           style={{ background: "var(--sidebar-bg)", borderColor: "var(--border)" }}
         >
-          {project.emojiIcon || "💻"}
+          {project.emojiIcon === "🧩" || project.emojiIcon === "puzzle" ? (
+            <Puzzle className="w-5 h-5 text-blue-500" />
+          ) : (
+            project.emojiIcon || "💻"
+          )}
         </div>
-        <div className="truncate">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-xs sm:text-sm truncate" style={{ color: "var(--ink)" }}>
+            <span className="font-bold text-xs sm:text-sm" style={{ color: "var(--ink)" }}>
               {project.title}
             </span>
             {project.featured && (
@@ -39,13 +43,13 @@ export function ProjectsSection() {
               </span>
             )}
           </div>
-          <div className="text-[11px] sm:text-xs truncate" style={{ color: "var(--ink-muted)" }}>
+          <p className="text-[11px] sm:text-xs leading-relaxed mt-0.5" style={{ color: "var(--ink-muted)" }}>
             {project.description}
-          </div>
+          </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2 flex-shrink-0">
+      <div className="flex items-center gap-2 flex-shrink-0 self-center">
         <span
           className="text-[11px] px-2.5 py-0.5 rounded-full border hidden sm:inline-block font-medium"
           style={{ borderColor: "var(--border)", color: "var(--ink-faint)" }}
